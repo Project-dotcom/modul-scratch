@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kamus Block Scratch</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e5f0ff;--ink:#575e75;--card:#fff;--line:#d9e3f2;--blue:#4d97ff;--blue2:#3373cc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121a2b;--ink:#dbe4f5;--card:#1c2740;--line:#2c3a5c}}
+:root[data-theme=dark]{--bg:#121a2b;--ink:#dbe4f5;--card:#1c2740;--line:#2c3a5c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,"Helvetica Neue",Arial,sans-serif;font-weight:600;line-height:1.55}
+header{background:var(--blue);border-bottom:4px solid var(--blue2);position:sticky;top:0;z-index:5;display:flex;gap:6px;align-items:center;padding:8px 14px;flex-wrap:wrap}
+header h1{margin:0 auto 0 0;color:#fff;font-size:20px;font-weight:900}
+.tab{border:0;background:rgba(0,0,0,.15);color:#fff;font:800 14px Nunito,sans-serif;padding:8px 14px;border-radius:8px;cursor:pointer}
+.tab.on{background:#fff;color:var(--blue2)}
+.tab:focus-visible,.cat:focus-visible,.card:focus-visible,button:focus-visible{outline:3px solid #ffbf00;outline-offset:2px}
+main{max-width:1100px;margin:0 auto;padding:20px 14px 60px}
+.hero{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.hero h2{font-size:clamp(26px,5vw,40px);line-height:1.1;margin:0 0 8px;font-weight:900;color:var(--blue2)}
+.hero p{margin:0;max-width:52ch}
+[data-theme=dark] .hero h2,:root:not([data-theme=light]) .hero h2{color:#9cc3ff}
+.stk{perspective:700px}.stk .b{transform:rotateX(10deg) rotateY(-12deg);display:flex;width:max-content}
+.stk .b:nth-child(2){margin-left:18px}.stk .b:nth-child(3){margin-left:36px}
+.b{--c:#4c97ff;--d:#3373cc;display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 12px;color:#fff;font-weight:800;font-size:14px;border-radius:6px;background:var(--c);border:1px solid var(--d);box-shadow:0 4px 0 var(--d),0 9px 10px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.35);position:relative;margin:0 0 9px;transition:transform .15s,box-shadow .15s;text-align:left}
+.b::after{content:"";position:absolute;left:14px;bottom:-10px;width:22px;height:6px;background:var(--c);border:1px solid var(--d);border-top:0;border-radius:0 0 5px 5px}
+.b.h{border-radius:24px 24px 6px 6px/18px 18px 6px 6px;padding-top:15px}
+.b.r{border-radius:20px}.b.r::after,.b.bo::after{display:none}.b.bo{border-radius:20px/16px}
+.b.c::after{display:none}
+.i{background:#fff;color:#575e75;border-radius:14px;padding:0 9px;min-width:22px;text-align:center;font-weight:700}
+.dd{background:rgba(0,0,0,.2);color:#fff;border-radius:5px;padding:0 8px;font-weight:700}.dd::after{content:"";display:inline-block;margin-left:6px;border:4px solid transparent;border-top-color:#fff;border-bottom:0}
+.bs{background:rgba(0,0,0,.22);border-radius:12px;padding:0 10px}
+.layout{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:900px){.layout{grid-template-columns:1.1fr 1fr}.detail{position:sticky;top:78px;align-self:start}}
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.cat{border:2px solid var(--line);background:var(--card);color:var(--ink);font:800 13px Nunito,sans-serif;padding:6px 12px 6px 8px;border-radius:20px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.cat i{width:14px;height:14px;border-radius:50%;background:var(--c);border:2px solid var(--d)}
+.cat.on{background:var(--c);border-color:var(--d);color:#fff}.cat.on i{background:#fff}
+.grid{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.card{background:none;border:0;padding:6px 8px 12px;cursor:pointer;color:inherit;text-align:left;perspective:500px;border-radius:10px}
+.card .b{margin:0;transform-style:preserve-3d}
+.card:hover .b{transform:rotateX(14deg) rotateY(-10deg) translateY(-3px);box-shadow:0 7px 0 var(--d),0 16px 16px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.35)}
+.card:active .b{transform:translateY(3px);box-shadow:0 1px 0 var(--d)}
+.card.sel{background:var(--card);box-shadow:0 0 0 3px var(--c)}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:18px}
+.panel h3{margin:14px 0 4px;font-size:16px;font-weight:900;color:var(--blue2)}
+:root:not([data-theme=light]) .panel h3{color:#9cc3ff}
+.panel p{margin:0}
+.big{padding:6px 0 14px}.big .b{font-size:17px}
+.sc{padding:12px 4px 4px;background:rgba(77,151,255,.08);border-radius:10px;margin-top:6px;overflow-x:auto}
+.sc .b{display:flex;width:max-content;max-width:none}
+.stage{display:block;width:100%;max-width:300px;aspect-ratio:4/3;background:#fff;border:3px solid var(--line);border-radius:8px;margin-top:6px}
+.btn{border:0;background:var(--blue);color:#fff;font:800 14px Nunito,sans-serif;padding:8px 16px;border-radius:8px;box-shadow:0 3px 0 var(--blue2);cursor:pointer;margin-top:8px}
+.btn:active{transform:translateY(3px);box-shadow:none}
+.empty{text-align:center;padding:30px 10px}
+.game{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.game h2{margin:0 0 4px;font-weight:900;color:var(--blue2)}
+:root:not([data-theme=light]) .game h2{color:#9cc3ff}
+.step{border-top:2px dashed var(--line);padding:12px 0}
+.step label{display:flex;gap:10px;align-items:flex-start;font-weight:800;cursor:pointer}
+.step input{width:20px;height:20px;accent-color:#59c059;margin-top:3px}
+.step.done label span{text-decoration:line-through;opacity:.6}
+.step p{margin:4px 0 0 30px}.step .sc,.step details{margin-left:30px}
+details summary{cursor:pointer;font-weight:800;color:var(--blue2);padding:6px 0}
+.mode{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 18px}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;width:0;background:#59c059;transition:width .3s}
+.note{background:#fff7d6;color:#6b5400;border-radius:10px;padding:10px 14px;margin:12px 0}
+.mech{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.mech label{display:flex;gap:10px;font-weight:800;cursor:pointer;align-items:center}
+.mech input{width:20px;height:20px;accent-color:#ffab19}
+.mech .sc,.mech p{display:none}.mech.on .sc{display:block}.mech.on p{display:block;margin:4px 0 0 30px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<header><h1>Kamus Block Scratch</h1>
+<button class="tab on" data-t="kamus">Kamus Block</button><button class="tab" data-t="tutor">Tutorial Game</button><button class="tab" data-t="bebas">Mode Bebas</button><button class="tab" data-t="buku">Buku Referensi</button></header>
+<main>
+<section id="kamus">
+<div class="hero"><div style="flex:1;min-width:240px"><h2>Kenali setiap block, lalu bikin game sendiri.</h2><p>Klik block mana saja untuk melihat fungsi, cara pakai, contoh susunan, dan preview singkatnya.</p></div><div class="stk" id="hero"></div></div>
+<div class="cats" id="cats"></div>
+<div class="layout"><div class="grid" id="grid"></div>
+<aside class="detail panel" id="detail"><div class="empty">Pilih satu block di sebelah untuk melihat penjelasannya.</div></aside></div>
+</section>
+<section id="tutor" hidden>
+<h2 style="margin:0 0 6px;font-weight:900">Tutorial membuat game</h2>
+<p style="margin:0">Pilih cara belajarmu. Mode Ikuti Langkah menampilkan susunan block lengkap. Mode Mahir hanya memberi tantangan dan kamu boleh mengintip jawabannya kalau buntu.</p>
+<div class="mode"><button class="tab on" data-m="0" style="background:var(--blue)">Ikuti Langkah</button><button class="tab" data-m="1" style="background:var(--blue)">Mahir</button></div>
+<div id="games"></div>
+</section>
+<section id="bebas" hidden>
+<h2 style="margin:0 0 6px;font-weight:900">Mode Bebas</h2>
+<p style="margin:0 0 14px">Sudah bisa dasar-dasarnya? Bagian pertama berisi lima komponen wajib agar game apa pun bisa dimainkan. Bagian kedua berisi fitur tambahan yang boleh kamu pilih sesukamu. Semua dirakit sendiri di Scratch.</p>
+<div class="panel" style="margin-bottom:18px"><h3 style="margin-top:0">Kebutuhan minimal sebuah game</h3><p>Siapkan dulu: <strong>2 sprite</strong> (pemain dan benda yang bergerak), <strong>2 variabel</strong> untuk semua sprite (Skor dan Nyawa), dan backdrop bebas. Lalu centang kelima komponen wajib di bawah setelah kamu membuatnya.</p>
+<div class="bar"><i id="reqbar"></i></div><div id="reqst" style="font-weight:800"></div></div>
+<h2 style="margin:0 0 8px;font-weight:900">Komponen wajib</h2><div id="req"></div>
+<h2 style="margin:22px 0 8px;font-weight:900">Fitur tambahan (opsional)</h2><div id="mech"></div>
+<div class="note">Tips: mulai dari satu fitur kecil, tes, baru tambah fitur berikutnya. Game besar selalu dibangun dari potongan kecil.</div>
+</section>
+<section id="buku" hidden>
+<h2 style="margin:0 0 6px;font-weight:900">Buku referensi</h2>
+<p style="margin:0 0 14px">Computer Coding for Kids, Carol Vorderman (DK, 2014). Bacaan pendamping untuk belajar coding dengan Scratch.</p>
+<div class="panel"><a class="btn" href="https://drive.google.com/file/d/1FbRFfEuNbkUlT20dJIBsQEAWpyu9Cq7z/view?usp=sharing" target="_blank" rel="noopener" style="display:inline-block;text-decoration:none;margin:0 0 12px">Buka di Google Drive</a>
+<iframe src="https://drive.google.com/file/d/1FbRFfEuNbkUlT20dJIBsQEAWpyu9Cq7z/preview" title="Preview buku Computer Coding for Kids" allow="autoplay" style="width:100%;height:75vh;border:2px solid var(--line);border-radius:8px;background:#fff"></iframe>
+<p style="margin-top:10px;font-size:14px">Kalau preview tidak tampil, klik Buka di Google Drive.</p></div>
+</section>
+</main>
+<script>
+const C={m:['Motion','#4C97FF','#3373CC'],l:['Looks','#9966FF','#774DCB'],s:['Sound','#CF63CF','#BD42BD'],e:['Events','#FFBF00','#CC9900'],c:['Control','#FFAB19','#CF8B17'],n:['Sensing','#5CB1D6','#2E8EB8'],o:['Operators','#59C059','#389438'],v:['Variables','#FF8C1A','#DB6E00']};
+const tok=t=>t.replace(/\(([^)]*)\)/g,'<i class="i">$1</i>').replace(/\[([^\]]*)\]/g,'<i class="dd">$1</i>').replace(/\{([^}]*)\}/g,'<i class="bs">$1</i>');
+const bk=(c,s,t)=>`<div class="b ${s}" style="--c:${C[c][1]};--d:${C[c][2]}">${tok(t)}</div>`;
+const sc=a=>'<div class="sc">'+a.map(l=>{const m=l.match(/^(\d) (\w) (.*)$/);const s=/^when /.test(m[3])?'h':'';return `<div style="margin-left:${m[1]*20}px">${bk(m[2],s,m[3])}</div>`}).join('')+'</div>';
+// [kategori, bentuk, teks, fungsi, cara pakai, contoh, demo]
+const B=[
+['m','','move (10) steps','Menggerakkan sprite maju sesuai arah hadapnya.','Isi angka negatif untuk mundur. Satu langkah sama dengan satu piksel di Stage.',['0 e when [space] key pressed','0 m move (10) steps'],[{x:-80},{x:80}]],
+['m','','turn right (15) degrees','Memutar sprite searah jarum jam. Pasangannya, turn left, memutar berlawanan.','Cocok untuk mobil atau pesawat yang berbelok. Taruh di dalam forever supaya terus berputar.',['0 e when flag clicked','0 c forever','1 m turn right (15) degrees'],[{dir:90},{dir:180},{dir:270},{dir:360}]],
+['m','','go to x: (0) y: (0)','Memindahkan sprite langsung ke titik tertentu di Stage.','Tengah Stage adalah x 0, y 0. Dipakai untuk posisi awal atau memunculkan benda di posisi acak.',['0 e when flag clicked','0 m go to x: (0) y: (-130)'],[{x:-80,y:-50},{x:80,y:50}]],
+['m','','glide (1) secs to x: (100) y: (0)','Menggeser sprite dengan mulus ke titik tujuan dalam waktu tertentu.','Cocok untuk gerakan otomatis seperti awan atau musuh yang berpatroli. Block ini menunggu sampai gerakan selesai.',['0 e when flag clicked','0 m glide (1) secs to x: (100) y: (0)'],[{x:-80,y:0},{x:80,y:40}]],
+['m','','point in direction (90)','Mengatur arah hadap sprite. 90 kanan, -90 kiri, 0 atas, 180 bawah.','Atur dulu arahnya sebelum memakai move, misalnya saat menembak peluru.',['0 e when flag clicked','0 m point in direction (0)'],[{dir:0},{dir:90},{dir:180}]],
+['m','','change x by (10)','Menambah nilai x, jadi sprite bergeser ke kanan. Angka negatif ke kiri.','Pilihan utama untuk gerakan kiri-kanan dengan tombol panah. Pasangannya, change y by, untuk naik-turun.',['0 c if {key [right arrow] pressed?} then','1 m change x by (10)'],[{x:-80},{x:-30},{x:20},{x:70}]],
+['m','','if on edge, bounce','Memantulkan sprite saat menyentuh tepi Stage.','Letakkan setelah move di dalam forever, dan atur rotation style ke left-right agar sprite tidak terbalik.',['0 e when flag clicked','0 c forever','1 m move (10) steps','1 m if on edge, bounce'],[{x:-80,dir:90},{x:95,dir:90},{x:-80,dir:-90}]],
+['l','','say [Hello!] for (2) seconds','Memunculkan gelembung ucapan selama beberapa detik.','Berguna untuk dialog, petunjuk, atau menampilkan skor akhir saat game over.',['0 e when this sprite clicked','0 l say [Hello!] for (2) seconds'],[{say:''},{say:'Hello!'},{say:'Hello!'},{say:''}]],
+['l','','switch costume to [costume2]','Mengganti tampilan sprite dengan costume lain.','Dipakai untuk animasi, atau memilih jenis buah dengan pick random.',['0 e when flag clicked','0 l switch costume to [costume2]'],[{hue:0},{hue:120},{hue:240}]],
+['l','','change size by (10)','Membesarkan sprite. Angka negatif mengecilkan.','Bisa dipakai untuk efek denyut atau menandai bahwa sprite baru saja mengambil item.',['0 e when this sprite clicked','0 l change size by (10)'],[{size:100},{size:170},{size:100},{size:60}]],
+['l','','change [color] effect by (25)','Mengubah warna atau efek visual sprite, misalnya color, ghost, atau mosaic.','Gunakan set effect to 0 untuk mengembalikan tampilan normal.',['0 e when flag clicked','0 c repeat (10)','1 l change [color] effect by (25)'],[{hue:0},{hue:90},{hue:180},{hue:270}]],
+['l','','show','Menampilkan sprite di Stage.','Pasangannya hide. Biasanya hide di awal, lalu show saat sprite siap beraksi.',['0 e when flag clicked','0 l show'],[{show:0},{show:1}]],
+['l','','hide','Menyembunyikan sprite. Sprite tetap ada dan masih bisa terdeteksi script.','Dipakai untuk menyembunyikan benda yang sudah ditangkap sebelum muncul lagi.',['0 e when flag clicked','0 l hide'],[{show:1},{show:0}]],
+['s','','start sound [Pop]','Memainkan suara tanpa menunggu selesai, jadi script langsung lanjut.','Pilihan terbaik untuk efek cepat seperti menangkap item atau menembak.',['0 c if {touching [Bintang]?} then','1 s start sound [Pop]'],[{ring:0},{ring:1},{ring:0}]],
+['s','','play sound [Meow] until done','Memainkan suara dan menunggu sampai selesai sebelum lanjut.','Cocok untuk musik latar di dalam forever, atau suara game over sebelum stop all.',['0 e when flag clicked','0 c forever','1 s play sound [Dance Around] until done'],[{ring:1},{ring:0},{ring:1}]],
+['s','','stop all sounds','Menghentikan semua suara yang sedang berbunyi.','Pakai saat game berakhir atau pemain pindah level agar suara tidak bertumpuk.',['0 e when I receive [Game Over]','0 s stop all sounds'],[{ring:1},{ring:0}]],
+['e','','when flag clicked','Memulai script saat tombol bendera hijau ditekan.','Hampir semua game dimulai dari sini. Isi dengan pengaturan awal seperti posisi, skor, dan nyawa.',['0 e when flag clicked','0 v set [Skor] to (0)'],[{say:'Mulai!'},{say:''}]],
+['e','','when [space] key pressed','Menjalankan script ketika tombol keyboard tertentu ditekan.','Pilih tombol di dropdown. Cocok untuk lompat atau menembak.',['0 e when [space] key pressed','0 m change y by (30)'],[{y:0},{y:50},{y:0}]],
+['e','','when this sprite clicked','Menjalankan script ketika sprite diklik dengan mouse.','Dipakai untuk tombol Start, tombol menu, atau benda yang harus diklik.',['0 e when this sprite clicked','0 l say [Aduh!] for (1) seconds'],[{say:''},{say:'Aduh!'},{say:''}]],
+['e','','broadcast [Game Over]','Mengirim pesan ke semua sprite agar mereka bereaksi bersamaan.','Satu sprite memberi tahu yang lain. Contohnya saat nyawa habis, semua sprite berhenti.',['0 c if {(Nyawa) < (1)} then','1 e broadcast [Game Over]'],[{say:''},{say:'Game Over',ring:1}]],
+['e','','when I receive [Game Over]','Menjalankan script ketika pesan broadcast yang sama diterima.','Pasangan broadcast. Nama pesannya harus sama persis.',['0 e when I receive [Game Over]','0 s play sound [Game Over] until done','0 c stop [all]'],[{say:''},{say:'Terima pesan'}]],
+['c','','wait (1) seconds','Menjeda script sebelum lanjut ke block berikutnya.','Beri jeda antar munculnya musuh atau antar kalimat dialog.',['0 e when flag clicked','0 c wait (1) seconds','0 l show'],[{show:0},{show:0},{show:1}]],
+['c','c','repeat (10)','Mengulang block di dalamnya sebanyak angka yang ditentukan.','Lebih rapi daripada menyalin block berkali-kali. Di dalamnya taruh aksi yang diulang.',['0 c repeat (10)','1 m move (10) steps'],[{x:-80},{x:-40},{x:0},{x:40},{x:80}]],
+['c','c','forever','Mengulang block di dalamnya tanpa henti, sampai game dihentikan.','Inti dari game: cek tombol, cek sentuhan, dan gerakkan benda terus-menerus.',['0 e when flag clicked','0 c forever','1 m move (3) steps','1 m if on edge, bounce'],[{x:-80,dir:90},{x:90,dir:90},{x:-80,dir:-90}]],
+['c','c','if {} then','Menjalankan block di dalamnya hanya jika kondisinya benar.','Isi kondisi dengan block bentuk heksagon dari Sensing atau Operators.',['0 c forever','1 c if {touching [Bom]?} then','2 v change [Nyawa] by (-1)'],[{star:1,x:-80},{star:1,x:80,say:'Kena!'}]],
+['c','c','repeat until {}','Mengulang sampai kondisi menjadi benar, lalu keluar dari loop.','Tepat untuk benda jatuh: ulangi turun sampai menyentuh pemain atau dasar layar.',['0 c repeat until {(y position) < (-160)}','1 m change y by (-4)'],[{y:70},{y:-70}]],
+['c','','create clone of [myself]','Membuat salinan sprite yang bisa bergerak sendiri.','Satu sprite buah bisa menghasilkan banyak buah. Atur perilaku salinan dengan when I start as a clone.',['0 c forever','1 c create clone of [myself]','1 c wait (1) seconds'],[{star:0},{star:1}]],
+['n','bo','touching [Kucing]?','Bernilai benar jika sprite menyentuh sprite lain, tepi, atau mouse pointer.','Letakkan di dalam if atau repeat until. Ini kunci deteksi tabrakan dan menangkap item.',['0 c if {touching [Kucing]?} then','1 v change [Skor] by (1)'],[{star:1,x:-80},{star:1,x:78,say:'Kena!'}]],
+['n','bo','key [space] pressed?','Bernilai benar selama tombol keyboard ditekan.','Dipakai di dalam forever + if untuk gerakan yang halus saat tombol ditahan.',['0 c forever','1 c if {key [left arrow] pressed?} then','2 m change x by (-10)'],[{x:0},{x:-60},{x:-60,say:'Tombol ditekan'}]],
+['n','r','mouse x','Memberi nilai posisi x mouse. Pasangannya mouse y.','Gabungkan dengan set x to supaya sprite mengikuti mouse.',['0 c forever','1 m set x to (mouse x)'],[{x:-80},{x:0},{x:80}]],
+['o','r','pick random (1) to (10)','Menghasilkan angka acak di antara dua angka yang diisi.','Dipakai untuk posisi muncul acak, pilihan costume acak, atau jeda yang tidak terduga.',['0 m go to x: (pick random -200 to 200) y: (170)'],[{x:-80,say:'-80'},{x:30,say:'30'},{x:-20,say:'-20'},{x:90,say:'90'}]],
+['o','r','(5) + (3)','Operator hitung: tambah. Tersedia juga kurang, kali, dan bagi.','Isi lingkaran dengan angka atau variabel, misalnya 0 - Kecepatan untuk membuat benda jatuh.',['0 m change y by (0 - Kecepatan)'],[{say:'5 + 3',score:0},{say:'= 8',score:8}]],
+['o','r','(Skor) mod (5)','Memberi sisa hasil bagi. Hasil 0 berarti habis dibagi.','Trik naik level: jika Skor mod 5 sama dengan 0, tambah kecepatan.',['0 c if {(Skor) mod (5) = (0)} then','1 v change [Kecepatan] by (1)'],[{score:3,say:'3 mod 5 = 3'},{score:5,say:'5 mod 5 = 0'}]],
+['o','bo','(Skor) > (50)','Kondisi: benar jika angka kiri lebih besar dari kanan. Ada juga < dan =.','Dipakai di dalam if untuk memeriksa skor, nyawa, atau posisi.',['0 c if {(Skor) > (50)} then','1 l say [Menang!] for (2) seconds'],[{score:20,say:'salah'},{score:60,say:'benar'}]],
+['o','bo','{} and {}','Benar hanya jika kedua kondisi benar. Ada juga or dan not.','Gabungkan syarat, misalnya menyentuh pemain dan tombol spasi ditekan.',['0 c if {{touching [Kucing]?} and {key [space] pressed?}} then'],[{star:1,x:-80,say:''},{star:1,x:70,say:'keduanya benar'}]],
+['v','','set [Skor] to (0)','Mengisi variabel dengan nilai tertentu.','Selalu atur nilai awal variabel di bawah when flag clicked agar game dimulai bersih.',['0 e when flag clicked','0 v set [Skor] to (0)'],[{score:0},{score:0}]],
+['v','','change [Skor] by (1)','Menambah variabel sebanyak angka tertentu. Angka negatif mengurangi.','Dipakai untuk menambah skor atau mengurangi nyawa.',['0 c if {touching [Bintang]?} then','1 v change [Skor] by (1)'],[{score:0},{score:1},{score:2},{score:3}]],
+['v','','show variable [Skor]','Menampilkan monitor variabel di Stage agar pemain bisa melihat nilainya.','Variabel baru biasanya otomatis tampil. Pakai hide variable untuk menyembunyikannya.',['0 e when flag clicked','0 v show variable [Skor]'],[{score:null},{score:5}]]
+];
+let cur='all',sel=-1;
+const $=s=>document.querySelector(s);
+$('#hero').innerHTML=bk('e','h','when flag clicked')+bk('m','','move (10) steps')+bk('l','','say [Hello!] for (2) seconds');
+$('#cats').innerHTML=['all',...Object.keys(C)].map(k=>`<button class="cat ${k=='all'?'on':''}" data-k="${k}" style="--c:${k=='all'?'#4C97FF':C[k][1]};--d:${k=='all'?'#3373CC':C[k][2]}"><i></i>${k=='all'?'Semua':C[k][0]}</button>`).join('');
+function grid(){$('#grid').innerHTML=B.map((b,i)=>cur=='all'||b[0]==cur?`<button class="card ${i==sel?'sel':''}" data-i="${i}" style="--c:${C[b[0]][1]}">${bk(b[0],b[1]=='c'?'':(b[1]||(b[2].startsWith('when ')?'h':'')),b[2])}</button>`:'').join('')}
+$('#cats').onclick=e=>{const k=e.target.closest('.cat');if(!k)return;cur=k.dataset.k;document.querySelectorAll('.cat').forEach(x=>x.classList.toggle('on',x==k));grid()};
+$('#grid').onclick=e=>{const k=e.target.closest('.card');if(!k)return;sel=+k.dataset.i;grid();show(sel)};
+function show(i){const b=B[i];$('#detail').innerHTML=`<div class="big">${bk(b[0],b[1]=='c'?'':(b[1]||(b[2].startsWith('when ')?'h':'')),b[2])}</div><strong style="color:${C[b[0]][2]}">Kategori ${C[b[0]][0]}</strong><h3>Fungsi</h3><p>${b[3]}</p><h3>Cara pakai</h3><p>${b[4]}</p><h3>Contoh susunan</h3>${sc(b[5])}<h3>Preview</h3><canvas class="stage" id="cv" width="300" height="225"></canvas><br><button class="btn" id="rp">Putar ulang</button><p style="margin-top:10px;font-size:13px">Preview hanya contoh. Bikin sendiri di editor Scratch.</p>`;$('#rp').onclick=()=>run(b[6]);run(b[6]);if(innerWidth<900)$('#detail').scrollIntoView({behavior:'smooth'})}
+// mesin preview
+const base={x:0,y:0,dir:90,size:100,hue:0,ghost:0,show:1,say:'',ring:0,star:0,score:null};let raf=0;
+function run(d){cancelAnim();const S=[];let p=Object.assign({},base,d[0]);S.push(p);for(let i=1;i<d.length;i++){p=Object.assign({},p,d[i]);S.push(p)}
+const cv=$('#cv'),g=cv.getContext('2d'),T=1000,t0=performance.now();
+const lerp=(a,b,t)=>a+(b-a)*t;
+(function f(now){const e=now-t0,n=S.length,k=Math.floor(e/T)%n,pr=(e%T)/T,a=S[k],b=S[Math.min(k+1,n-1)],t=pr<.5?2*pr*pr:1-2*(1-pr)*(1-pr);
+const o={};for(const q in a)o[q]=typeof a[q]=='number'&&typeof b[q]=='number'?lerp(a[q],b[q],k==n-1?0:t):(pr>.3?b[q]:a[q]);o.rp=pr;draw(g,o);raf=requestAnimationFrame(f)})(t0)}
+function cancelAnim(){cancelAnimationFrame(raf)}
+function draw(g,s){g.clearRect(0,0,300,225);g.fillStyle='#f4f8ff';for(let i=0;i<300;i+=30){g.fillRect(i,0,1,225)}for(let i=0;i<225;i+=30){g.fillRect(0,i,300,1)}
+if(s.star){g.fillStyle='#ffbf00';g.beginPath();for(let i=0;i<10;i++){const r=i%2?7:16,an=i*Math.PI/5-Math.PI/2;g.lineTo(225+r*Math.cos(an),60+r*Math.sin(an))}g.fill()}
+if(s.ring){for(let i=0;i<3;i++){const r=((s.rp+i/3)%1)*60;g.strokeStyle=`rgba(207,99,207,${1-r/60})`;g.lineWidth=3;g.beginPath();g.arc(150,112,r,0,7);g.stroke()}}
+if(s.show||s.show===0&&false){g.save();g.translate(150+s.x*1.25,112-s.y*1.25);g.rotate((s.dir-90)*Math.PI/180);const z=s.size/100;g.scale(z,z);g.globalAlpha=Math.max(0,1-s.ghost/100);if('filter' in g)g.filter=`hue-rotate(${s.hue}deg)`;
+g.fillStyle='#ffab19';g.strokeStyle='#cf8b17';g.lineWidth=3;g.beginPath();g.moveTo(-20,-10);g.lineTo(-16,-32);g.lineTo(-4,-18);g.moveTo(20,-10);g.lineTo(16,-32);g.lineTo(4,-18);g.fill();g.stroke();g.beginPath();g.arc(0,0,22,0,7);g.fill();g.stroke();g.fillStyle='#333';g.beginPath();g.arc(-8,-3,3,0,7);g.arc(8,-3,3,0,7);g.fill();g.fillStyle='#ff7a8a';g.beginPath();g.arc(0,5,3,0,7);g.fill();g.restore()}
+if(s.say){g.save();g.font='800 14px Nunito,sans-serif';const w=g.measureText(s.say).width+20,x=Math.min(Math.max(150+s.x*1.25-w/2,4),296-w),y=112-s.y*1.25-80;g.fillStyle='#fff';g.strokeStyle='#9aa7bf';g.lineWidth=2;g.beginPath();g.roundRect(x,y,w,28,12);g.fill();g.stroke();g.fillStyle='#575e75';g.fillText(s.say,x+10,y+19);g.restore()}
+if(s.score!==null){g.fillStyle='#ff8c1a';g.beginPath();g.roundRect(8,8,88,24,6);g.fill();g.fillStyle='#fff';g.font='800 13px Nunito,sans-serif';g.fillText('Skor: '+Math.round(s.score),16,25)}}
+grid();
+// tutorial
+const T=[
+{n:'Tangkap Bintang',d:'Gerakkan kucing untuk menangkap bintang yang jatuh dan hindari bom. Makin banyak skor, makin cepat jatuhnya.',s:[
+['Gerakkan pemain','Buat kucing bergerak kiri dan kanan memakai tombol panah.',['0 e when flag clicked','0 m go to x: (0) y: (-130)','0 c forever','1 c if {key [left arrow] pressed?} then','2 m change x by (-10)','1 c if {key [right arrow] pressed?} then','2 m change x by (10)']],
+['Atur skor, nyawa, dan kecepatan','Buat tiga variabel untuk semua sprite, lalu isi nilai awalnya.',['0 e when flag clicked','0 v set [Skor] to (0)','0 v set [Nyawa] to (3)','0 v set [Kecepatan] to (3)']],
+['Jatuhkan bintang','Di sprite Bintang, munculkan bintang di posisi acak lalu turunkan sampai dasar layar.',['0 e when flag clicked','0 c forever','1 m go to x: (pick random -200 to 200) y: (170)','1 l show','1 c repeat until {(y position) < (-160)}','2 m change y by (0 - Kecepatan)','1 l hide']],
+['Tangkap bintang dengan suara','Tambahkan pengecekan sentuhan. Skor naik dan suara berbunyi.',['0 c if {touching [Kucing]?} then','1 v change [Skor] by (1)','1 s start sound [Collect]','1 c if {(Skor) mod (5) = (0)} then','2 v change [Kecepatan] by (1)']],
+['Tambah bom dan game over','Sprite Bom mengurangi nyawa. Saat nyawa habis, kirim pesan Game Over.',['0 c if {touching [Kucing]?} then','1 v change [Nyawa] by (-1)','1 s start sound [Boing]','1 c if {(Nyawa) < (1)} then','2 e broadcast [Game Over]','0 e when I receive [Game Over]','0 s play sound [Game Over] until done','0 c stop [all]']]]},
+{n:'Tangkap Buah',d:'Keranjang mengikuti mouse untuk menangkap buah. Buah busuk mengurangi nyawa dan buah bagus yang lolos juga.',s:[
+['Keranjang mengikuti mouse','Pakai mouse x agar gerakannya halus.',['0 e when flag clicked','0 m go to x: (0) y: (-140)','0 c forever','1 m set x to (mouse x)']],
+['Buat buah dengan clone','Satu sprite Buah membuat banyak salinan dengan jeda acak.',['0 e when flag clicked','0 l hide','0 c forever','1 c create clone of [myself]','1 c wait (pick random 0.4 to 1) seconds']],
+['Acak jenis buah lalu jatuhkan','Setiap clone memilih costume acak. Costume 6 adalah buah busuk.',['0 c when I start as a clone','0 l switch costume to (pick random 1 to 6)','0 m go to x: (pick random -200 to 200) y: (170)','0 l show','0 c repeat until {(y position) < (-160)}','1 m change y by (0 - Kecepatan)']],
+['Tangkap atau lolos','Cek sentuhan dengan keranjang, bedakan buah bagus dan busuk.',['0 c if {touching [Keranjang]?} then','1 c if {(costume number) = (6)} then','2 v change [Nyawa] by (-1)','2 s start sound [Boing]','1 c if {not {(costume number) = (6)}} then','2 v change [Skor] by (1)','2 s start sound [Pop]']],
+['Combo dan game over','Tangkap berturut-turut untuk bonus skor. Nyawa habis berarti game over.',['0 v change [Combo] by (1)','0 v change [Skor] by (1 + (Combo / 5))','0 c if {(Nyawa) < (1)} then','1 e broadcast [Game Over]']]]}];
+let mode=0;
+function games(){$('#games').innerHTML=T.map((g,gi)=>`<div class="game"><h2>${g.n}</h2><p style="margin:0">${g.d}</p><div class="bar"><i id="pb${gi}"></i></div>${g.s.map((s,si)=>`<div class="step" data-g="${gi}"><label><input type="checkbox" data-g="${gi}"><span>Langkah ${si+1}: ${s[0]}</span></label><p>${s[1]}</p>${mode?`<details><summary>Intip jawaban</summary>${sc(s[2])}</details>`:sc(s[2])}</div>`).join('')}</div>`).join('')}
+games();
+$('#games').onchange=e=>{const c=e.target;c.closest('.step').classList.toggle('done',c.checked);const g=c.dataset.g,a=[...document.querySelectorAll(`input[data-g="${g}"]`)];$('#pb'+g).style.width=a.filter(x=>x.checked).length/a.length*100+'%'};
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=+b.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x==b));games()});
+// mode bebas
+const M=[
+['Gerak dengan tombol panah','Pemain bergerak kiri-kanan saat tombol ditahan.',['0 c forever','1 c if {key [left arrow] pressed?} then','2 m change x by (-10)','1 c if {key [right arrow] pressed?} then','2 m change x by (10)']],
+['Gerak mengikuti mouse','Sprite selalu berada di posisi x mouse.',['0 c forever','1 m set x to (mouse x)']],
+['Benda jatuh dari atas','Muncul acak di atas lalu turun terus.',['0 c forever','1 m go to x: (pick random -200 to 200) y: (170)','1 c repeat until {(y position) < (-160)}','2 m change y by (-5)']],
+['Skor','Tambah skor saat menyentuh sesuatu.',['0 v set [Skor] to (0)','0 c if {touching [Pemain]?} then','1 v change [Skor] by (1)']],
+['Nyawa dan game over','Kurangi nyawa dan hentikan game saat habis.',['0 v change [Nyawa] by (-1)','0 c if {(Nyawa) < (1)} then','1 e broadcast [Game Over]']],
+['Musik latar dan efek suara','Musik berulang plus suara saat ada kejadian.',['0 c forever','1 s play sound [Dance Around] until done','0 s start sound [Pop]']],
+['Makin lama makin sulit','Setiap kelipatan skor tertentu, kecepatan naik.',['0 c if {(Skor) mod (10) = (0)} then','1 v change [Kecepatan] by (1)']],
+['Peluru dengan clone','Tekan spasi untuk menembak.',['0 e when [space] key pressed','0 c create clone of [myself]','0 c when I start as a clone','0 c repeat until {touching [edge]?}','1 m change y by (10)','0 c delete this clone']]];
+const W=[
+['Mulai dan pengaturan awal','Menjamin game selalu mulai dari kondisi yang sama. Tanpa ini, skor dan posisi sisa permainan sebelumnya masih tersimpan dan game terasa rusak.',['0 e when flag clicked','0 m go to x: (0) y: (-130)','0 v set [Skor] to (0)','0 v set [Nyawa] to (3)']],
+['Kontrol pemain','Pemain harus bisa digerakkan. Tanpa kontrol, tidak ada interaksi dan itu bukan game.',['0 e when flag clicked','0 c forever','1 c if {key [left arrow] pressed?} then','2 m change x by (-10)','1 c if {key [right arrow] pressed?} then','2 m change x by (10)']],
+['Benda yang bergerak','Sesuatu yang harus ditangkap atau dihindari. Inilah sumber tantangannya. Pasang di sprite kedua.',['0 e when flag clicked','0 c forever','1 m go to x: (pick random -200 to 200) y: (170)','1 c repeat until {(y position) < (-160)}','2 m change y by (-5)']],
+['Deteksi tabrakan dan akibatnya','Menghubungkan pemain dengan benda. Saat bersentuhan, skor naik atau nyawa turun. Taruh di dalam loop benda tadi.',['0 c if {touching [Pemain]?} then','1 v change [Skor] by (1)','1 s start sound [Pop]']],
+['Akhir permainan','Game butuh kondisi kalah atau menang. Tanpa ini pemain bermain tanpa tujuan dan game tidak pernah selesai.',['0 c if {(Nyawa) < (1)} then','1 e broadcast [Game Over]','0 e when I receive [Game Over]','0 c stop [all]']]];
+function mk(id,arr,cls,fn){$(id).innerHTML=arr.map((m,i)=>`<div class="mech ${cls}" data-i="${i}"><label><input type="checkbox"><span>${m[0]}</span></label><p><strong>Fungsi:</strong> ${m[1]}</p>${sc(m[2])}</div>`).join('')}
+mk('#req',W,'on');mk('#mech',M,'');
+$('#req').onchange=()=>{const n=document.querySelectorAll('#req input:checked').length;$('#reqbar').style.width=n*20+'%';$('#reqst').textContent=n==5?'Semua komponen wajib terpenuhi. Gamemu sudah bisa dimainkan. Klik bendera hijau dan coba!':'Terpenuhi '+n+' dari 5. Lengkapi sisanya agar game bisa dimainkan.'};
+$('#req').onchange();
+$('#mech').onchange=e=>e.target.closest('.mech').classList.toggle('on',e.target.checked);
+// tab
+document.querySelectorAll('header .tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('header .tab').forEach(x=>x.classList.toggle('on',x==b));['kamus','tutor','bebas','buku'].forEach(k=>$('#'+k).hidden=k!=b.dataset.t);scrollTo(0,0)});
+</script></body></html>
